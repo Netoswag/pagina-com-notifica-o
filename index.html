@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Inicial</title>
+    <script>
+        // Função para exibir a notificação
+        function mostrarNotificacao() {
+            if (Notification.permission === 'granted') {
+                // Cria a notificação
+                const notificacao = new Notification('Notificação de Cadastro', {
+                    body: 'Clique aqui para acessar a página de cadastro.',
+                    icon: 'https://via.placeholder.com/48' // Ícone para a notificação
+                });
+
+                // Adiciona um evento de clique à notificação
+                notificacao.onclick = function () {
+                    window.location.href = 'cadastro.html'; // Redireciona para a página de cadastro
+                };
+            } else if (Notification.permission !== 'denied') {
+                // Solicita permissão para exibir notificações
+                Notification.requestPermission().then(permission => {
+                    if (permission === 'granted') {
+                        mostrarNotificacao();
+                    }
+                });
+            }
+        }
+
+        // Exibe a notificação após 3 segundos
+        window.onload = function () {
+            setTimeout(mostrarNotificacao, 3000);
+        }
+    </script>
+</head>
+<body>
+    <h1>Bem-vindo à Página Inicial</h1>
+    <p>Aguarde 3 segundos para ver a notificação.</p>
+</body>
+</html>
